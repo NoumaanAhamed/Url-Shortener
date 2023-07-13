@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+    <style>
+      body {
+        font-family: "Courier New", Courier, monospace;
+      }
+
+      h1 {
+        font-size: 24px;
+        margin-top: 0;
+      }
+
+      p {
+        font-size: 16px;
+      }
+
+      form {
+        margin-top: 20px;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+      }
+
+      input[type="submit"] {
+        background-color: #000;
+        color: #fff;
+        font-weight: bold;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        border: 1px solid #ccc;
+        padding: 10px;
+      }
+
+      th {
+        text-align: left;
+      }
+
+      .input-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .input-group input {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>URL Shortener</h1>
+    <% if(locals.id){%>
+    <p>URL Generated : http://localhost:5000/url/<%= id %></p>
+    <% } %>
+    <div>
+      <form action="/url" method="post">
+        <div class="input-group">
+          <label for="url">URL:</label>
+          <input type="text" placeholder="http://example.com" name="url" />
+          <input type="submit" value="Shorten Url" />
+        </div>
+      </form>
+    </div>
+    <div>
+      <% if(locals.urls) {%>
+      <table>
+        <thead>
+          <th>S.No</th>
+          <th>ShortID</th>
+          <th>Redirect</th>
+          <th>Clicks</th>
+        </thead>
+        <tbody>
+          <% urls.forEach((url,index) => { %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= url.shortId %></td>
+            <td><%= url.redirectURL %></td>
+            <td><%= url.visitHistory.length %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <% } %>
+    </div>
+  </body>
+</html>
